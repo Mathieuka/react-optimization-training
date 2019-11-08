@@ -4,24 +4,28 @@ import Person from '../Persons/Person/Person';
 class Persons extends Component {
 
     shouldComponentUpdate(nextProps, nextState){
-        console.log('[Persons] shouldComponentUpdate');
-        console.log('nextProps => ',nextProps);
-        console.log('nextState => ',nextState);
-        return true;
+        console.log(nextProps, " ", this.props.persons);
+        if(nextProps.persons !== this.props.persons){
+            console.log('[Persons] shouldComponentUpdate TRUE');
+            return true
+        }else{
+            console.log('[Persons] shouldComponentUpdate FALSE');
+            return false
+        }
     }
 
-    getSnapshotBeforeUpdate(snapshot){
-        console.log('[Persons.js] getSnapshotBeforeUpdate');
-        return snapshot;
-    }
+    // getSnapshotBeforeUpdate(snapshot){
+    //     console.log('[Persons.js] getSnapshotBeforeUpdate');
+    //     return snapshot;
+    // }
 
-    componentDidUpdate(prevProps, prevState, snapshot){
-        console.log('[Persons.js] componentDidUpdate ',snapshot);
-    }
+    // componentDidUpdate(prevProps, prevState, snapshot){
+    //     console.log('[Persons.js] componentDidUpdate ',snapshot);
+    // }
 
-    componentWillUnmount(){
-        console.log('[Persons.js] componentWillUnmount');
-    }
+    // componentWillUnmount(){
+    //     console.log('[Persons.js] componentWillUnmount');
+    // }
 
     render(){
         console.log('[Persons.js] rendering...');
