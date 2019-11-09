@@ -9,18 +9,19 @@ class App extends Component {
   constructor(props){
     super(props);
     console.log('[App.js] constructor');
+    this.state = {
+      persons: [
+        { id: 'asfa1', name: 'Max', age: 28 },
+        { id: 'vasdf1', name: 'Manu', age: 29 },
+        { id: 'asdf11', name: 'Stephanie', age: 26 }
+      ],
+      displayCockpit : true,
+      otherState: 'some other value',
+      showPersons: false
+    }
   }
   
-  state = {
-    persons: [
-      { id: 'asfa1', name: 'Max', age: 28 },
-      { id: 'vasdf1', name: 'Manu', age: 29 },
-      { id: 'asdf11', name: 'Stephanie', age: 26 }
-    ],
-    displayCockpit : true,
-    otherState: 'some other value',
-    showPersons: false
-  }
+  
 
   componentDidMount(){
     console.log('[App.js] componentDidMount');
@@ -31,7 +32,6 @@ class App extends Component {
     return true;
   }
   
-
   componentDidUpdate(nextProps, nextState){
     console.log('[Apps] componentDidUpdate');
   }
@@ -99,7 +99,7 @@ class App extends Component {
           ? 
               <Cockpit 
                 title={this.props.appTitle}
-                persons={this.state.persons} 
+                personsLength={this.state.persons.length} 
                 click={this.togglePersonsHandler}
                 showPerson={this.state.showPersons}
                 />
