@@ -4,6 +4,9 @@ import classes from './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 
+import Aux from '../hoc/Aux';
+import withClass from '../hoc/withClass';
+
 class App extends Component {
 
   constructor(props){
@@ -93,23 +96,23 @@ class App extends Component {
     
 
     return (
-        <div className={classes.App}>
-        <button onClick={this.toggleCockpit}>display cockpit</button>
-          { this.state.displayCockpit === true 
-          ? 
-              <Cockpit 
-                title={this.props.appTitle}
-                personsLength={this.state.persons.length} 
-                click={this.togglePersonsHandler}
-                showPerson={this.state.showPersons}
-                />
-          :
-          false
-          }
-          {persons}           
-        </div>
+        <Aux>
+          <button onClick={this.toggleCockpit}>display cockpit</button>
+            { this.state.displayCockpit === true 
+            ? 
+                <Cockpit 
+                  title={this.props.appTitle}
+                  personsLength={this.state.persons.length} 
+                  click={this.togglePersonsHandler}
+                  showPerson={this.state.showPersons}
+                  />
+            :
+            false
+            }
+            {persons}           
+        </Aux>
     );
   }
 }
 
-export default App;
+export default withClass(App, classes.App);
