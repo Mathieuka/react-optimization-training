@@ -6,6 +6,7 @@ import Cockpit from '../components/Cockpit/Cockpit';
 
 import Aux from '../hoc/Aux';
 import withClass from '../hoc/withClass';
+import AuthContext from '../context/auth-context';
 
 class App extends Component {
 
@@ -24,7 +25,8 @@ class App extends Component {
     displayCockpit : true,
     otherState: 'some other value',
     showPersons: false,
-    changeCounter: 0
+    changeCounter: 0,
+    authenticated: false
   }
 
   componentDidMount(){
@@ -85,16 +87,18 @@ class App extends Component {
     })
   }
 
+  loginHandler = () => this.setState( (prevState,props) => ({authenticated: !prevState.authenticated}));
+
   render () {
     console.log('[App.js] render');
-    
     let persons = null;
     if ( this.state.showPersons ) {
       persons = (
                 <div>
                   <Persons  persons={this.state.persons} 
                             change={this.nameChangedHandler} 
-                            clicked={this.deletePersonHandler}/>
+                            clicked={this.deletePersonHandler}                          
+                            />
                 </div>        
                 )
     }
@@ -103,18 +107,22 @@ class App extends Component {
     return (
         <Aux>
           <button onClick={this.toggleCockpit}>display cockpit</button>
-            { this.state.displayCockpit === true 
-            ? 
+          <AuthContext.Provider 
+            value={{
+              authenticated: this.state.authenticated,
+              login: this.loginHandler
+              }}
+          >
+            { this.state.displayCockpit === true ? 
                 <Cockpit 
                   title={this.props.appTitle}
                   personsLength={this.state.persons.length} 
                   click={this.togglePersonsHandler}
                   showPerson={this.state.showPersons}
                   />
-            :
-            false
-            }
-            {persons}           
+            : null}
+            {persons}
+          </AuthContext.Provider>           
         </Aux>
     );
   }
