@@ -8,6 +8,8 @@ import Aux from '../hoc/Aux';
 import withClass from '../hoc/withClass';
 import AuthContext from '../context/auth-context';
 
+import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
+
 class App extends Component {
 
   constructor(props){

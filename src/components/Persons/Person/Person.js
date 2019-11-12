@@ -14,19 +14,21 @@ class Person extends Component {
         this.inputElementRef = React.createRef();
     }
 
+    static contextType = AuthContext;
+
     componentDidMount(){
         if(this.props.indexOfThePerson === this.props.arrayLength - 1){
             this.inputElementRef.current.focus()
         }
+        //static contextType variable give us the possibility to acceded to the AuthContext everywhere in the component
+        console.log(this.context);
     }
 
     render(){
         console.log('[Person.js] rendering...');
         return (
             <Aux>
-                <AuthContext.Consumer>
-                    { (context) => context.authenticated === true  ? <p>Is authenticated</p> : <p>Please login</p>}
-                </AuthContext.Consumer>    
+                {this.context.authenticated === true  ? <p>Is authenticated</p> : <p>Please login</p>}    
                 <p onClick={this.props.click}>I'm {this.props.name} and I am {this.props.age} years old!</p>
                 <p>{this.props.children}</p>
                 <input 
