@@ -6,7 +6,6 @@ import withClasse from '../../../hoc/withClass';
 
 class Person extends Component {
     
-
     render(){
         console.log('[Person.js] rendering...');
         return (
@@ -19,4 +18,4 @@ class Person extends Component {
     }
 };
 
-export default Person;
+export default withClasse(Person, classes.Person);
