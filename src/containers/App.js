@@ -12,26 +12,27 @@ class App extends Component {
   constructor(props){
     super(props);
     console.log('[App.js] constructor');
-    this.state = {
-      persons: [
-        { id: 'asfa1', name: 'Max', age: 28 },
-        { id: 'vasdf1', name: 'Manu', age: 29 },
-        { id: 'asdf11', name: 'Stephanie', age: 26 }
-      ],
-      displayCockpit : true,
-      otherState: 'some other value',
-      showPersons: false
-    }
+    
   }
   
-  
+  state = {
+    persons: [
+      { id: 'asfa1', name: 'Max', age: 28 },
+      { id: 'vasdf1', name: 'Manu', age: 29 },
+      { id: 'asdf11', name: 'Stephanie', age: 26 }
+    ],
+    displayCockpit : true,
+    otherState: 'some other value',
+    showPersons: false,
+    changeCounter: 0
+  }
 
   componentDidMount(){
     console.log('[App.js] componentDidMount');
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log(`[App.js ] shouldComponentUpdate ${nextProps} ${nextState}`);
+    console.log(`[App.js ] shouldComponentUpdate`);
     return true;
   }
   
@@ -48,7 +49,6 @@ class App extends Component {
       ...this.state.persons[personIndex]
     };
     
-
     // const person = Object.assign({}, this.state.persons[personIndex]);
 
     person.name = event.target.value;
@@ -56,7 +56,12 @@ class App extends Component {
     const persons = [...this.state.persons];
     persons[personIndex] = person;
 
-    this.setState( { persons: persons } );
+    this.setState((prevState,props) => {
+      return { 
+        persons: persons, 
+        changeCounter: prevState.changeCounter + 1 
+      }
+    });
   }
 
   deletePersonHandler = ( personIndex ) => {
