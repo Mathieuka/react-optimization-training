@@ -6,7 +6,6 @@ import withClasse from '../../../hoc/withClass';
 
 class Person extends Component {
     
-
     render(){
         console.log('[Person.js] rendering...');
         return (
